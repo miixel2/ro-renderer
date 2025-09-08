@@ -44,7 +44,7 @@ jobs:
       - name: Compile
         shell: cmd
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
+          call "Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
           dub build --build=release --compiler=ldc2 :cli
           dub build --build=release --compiler=ldc2 :server
           dub run --build=release --compiler=ldc2 :configgenerator
