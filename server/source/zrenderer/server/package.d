@@ -4,14 +4,14 @@ import app : createOutputDirectory;
 import config : Config;
 import logging : zLogLevel = LogLevel;
 import std.conv : ConvException;
-import std.getopt : GetOptException;
+import std.getopt : GetoptResult, GetOptException;
 import std.stdio : stderr;
 import vibe.core.core;
 import vibe.core.log : LogLevel;
 import vibe.http.router;
 import vibe.http.server;
 import vibe.http.log : HTTPLogger;
-import zconfig : initializeConfig, getConfigArguments;
+import zconfig : loadConfig, ConfigLoaderConfig;
 import zrenderer.server.auth;
 import zrenderer.server.globals : defaultConfig, accessTokens;
 import zrenderer.server.routes;
@@ -20,20 +20,14 @@ enum usage = "A REST server to render sprites from Ragnarok Online";
 
 int main(string[] args)
 {
-    string[] configArgs = getConfigArguments!Config("zrenderer.conf", args);
-    if (configArgs.length > 0)
-    {
-        import std.array : insertInPlace;
-
-        args.insertInPlace(1, configArgs);
-    }
+    ConfigLoaderConfig clc = { configFilename: "zrenderer.conf" };
+    GetoptResult helpInformation;
 
     Config config;
-    bool helpWanted = false;
 
     try
     {
-        config = initializeConfig!(Config, usage)(args, helpWanted);
+        config = loadConfig!(Config, usage)(args, helpInformation, clc);
 
         import std.exception : enforce;
         import validation : isJobArgValid, isCanvasArgValid;
@@ -52,7 +46,7 @@ int main(string[] args)
         return 1;
     }
 
-    if (helpWanted)
+    if (helpInformation.helpWanted)
     {
         return 0;
     }

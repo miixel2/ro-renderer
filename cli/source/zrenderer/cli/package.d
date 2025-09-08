@@ -1,30 +1,24 @@
 module zrenderer.cli;
 
 import config : Config;
-import zconfig : initializeConfig, getConfigArguments;
+import zconfig : loadConfig, ConfigLoaderConfig;
 import logging : LogLevel, BasicLogger;
+import std.getopt : GetoptResult, GetOptException;
+import std.conv : ConvException;
 
 enum usage = "A tool to render sprites from Ragnarok Online";
 
 int main(string[] args)
 {
-    string[] configArgs = getConfigArguments!Config("zrenderer.conf", args);
 
-    if (configArgs.length > 0)
-    {
-        import std.array : insertInPlace;
-
-        args.insertInPlace(1, configArgs);
-    }
-    import std.getopt : GetOptException;
-    import std.conv : ConvException;
+    ConfigLoaderConfig clc = { configFilename: "zrenderer.conf" };
+    GetoptResult helpInformation;
 
     Config config;
-    bool helpWanted = false;
 
     try
     {
-        config = initializeConfig!(Config, usage)(args, helpWanted);
+        config = loadConfig!(Config, usage)(args, helpInformation, clc);
 
         import std.exception : enforce;
         import validation : isJobArgValid, isCanvasArgValid;
@@ -47,7 +41,7 @@ int main(string[] args)
         return 1;
     }
 
-    if (helpWanted)
+    if (helpInformation.helpWanted)
     {
         return 0;
     }
