@@ -98,6 +98,7 @@ int main(string[] args)
     settings.port = config.port;
     settings.accessLogFormat = "%h - %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{x-token-desc}i\"";
     settings.accessLogger = new MaskedConsoleLogger(settings, settings.accessLogFormat);
+    settings.options |= HTTPServerOption.reusePort;
 
     if (defaultConfig.enableSSL)
     {

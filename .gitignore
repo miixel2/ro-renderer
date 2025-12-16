@@ -1,4 +1,5 @@
 .dub
+dub.selections.json
 docs.json
 __dummy.html
 docs/
@@ -18,4 +19,5 @@ zrenderer.conf
 output/
 accesstokens.conf
 secrets/
-
+.idea/
+ggtdata/

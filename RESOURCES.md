@@ -50,3 +50,46 @@ data\sprite\shadow.*
 ```
 The format is ready to be used for the aforementioned zextractor.
 
+```
+Where to find Costume sprite id
+
+headgears are in accessoryid.lub and accname.lub
+garments are in spriterobeid.lub and spriterobename.lub
+
+Currently not found sprite or cannot show (due to effect)
+Headgear
+    Middle
+        Costume Spotlight
+        Costume Glow Of New Year
+    Lower
+        Costume Blossom Fluttering (1331)
+        Costume Gift Of Snow
+        Costume Invisible Mask
+        Costume Poring Jars Of Clay
+
+Garment
+    Costume Snow Powder
+    Costume Astra Blessing
+    Costume Aura of Scarlet
+    Costume Aura of Red
+    Costume Aura of Shamrock
+    Costume Aura of Yellow Green
+    Costume Aura of Flamingo
+    Costume Aura of Pink
+    Costume Magic Circle
+    Costume Swirling Flame
+    Costume Aura of Darkness
+    Costume Aura of Night
+    Costume Rotating Gears
+    Costume Invisible Manteau
+    Costume Digital Space
+    Costume Popping Poring Aura
+    Costume Blessings of Soul
+    
+    
+ Where to find itemid
+   File: RagnarokOnline\System\itemInfo.lub 
+   File: RagnarokOnline\System\itemInfo_new.lub 
+    
+    
+```

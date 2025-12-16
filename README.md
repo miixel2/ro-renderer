@@ -19,6 +19,10 @@ Tool to render sprites from the game Ragnarok Online. This tool is available as 
 
 ## Required Resources
 Please see [RESOURCES.md](https://github.com/zhad3/zrenderer/blob/main/RESOURCES.md).
+Packages are available in Github Releases.
+  - [Release v1.4.3 (May 21, 2025)](https://github.com/zhad3/zrenderer/releases/tag/v1.4.3)
+    - Downloadable zip: [renderer-windows-x64-v1.4.3.zip](https://github.com/zhad3/zrenderer/releases/download/v1.4.3/zrenderer-windows-x64-v1.4.3.zip)
+      - There are zrenderer.exe and zrenderer-server.exe in the zip along with conf for using.
 
 ## Usage
 ### CLI
@@ -183,7 +187,7 @@ $ dub build :server
 ```
 
 ## Windows
-[Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019)
+- [Download and Install Build Tools for Visual Studio](https://aka.ms/vs/stable/vs_BuildTools.exe)
 
 ## Building
 First clone the repository:  

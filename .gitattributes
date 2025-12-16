@@ -1,0 +1,5 @@
+* text=auto
+# treat all bat files as CRLF
+*.bat text eol=crlf
+# treat all shell script as LF
+*.sh text eol=lf
