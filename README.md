@@ -224,6 +224,126 @@ which will be available when installing the Build Tools for Visual Studio (see a
 
 Depending on your system the command prompt will be available for x86 and x64. Whichever you choose will build zrenderer for the same architecture.
 
+### Build and Push Docker Image
+
+#### 1. Install Docker Desktop (if not already installed)
+    
+Windows:
+  - Download: https://www.docker.com/products/docker-desktop/
+  - Install and restart your computer
+  - Start Docker Desktop
+  - Verify installation:
+```shell
+ docker --version
+```
+#### 2. Create a Docker Hub Account
+
+1. Go to https://hub.docker.com/
+2. Sign up for a free account
+3. Remember your username (you'll need it)
+
+#### 3. Login to Docker Hub
+
+Open PowerShell or Command Prompt (not the VS Developer Command Prompt):
+```shell
+docker login
+```
+Enter your Docker Hub username and password.
+
+#### 4. Build the Docker Image
+   
+Navigate to your project directory:
+```shell
+cd C:\Workspace\ro-renderer
+```
+
+Build the image (replace yourusername with your Docker Hub username):
+```shell
+docker build -t yourusername/zrenderer:latest .
+```
+
+This will:
+- Use the Alpine Linux base image
+- Install dependencies (LDC2, dub, build tools)
+- Build the zrenderer-server in release mode
+- Create a minimal final image (~50-100MB)
+
+**Build time**: 5-15 minutes (first build)
+
+#### 5. Tag the Image (optional – for versioning)
+
+Create additional tags for versioning:
+```shell
+docker tag yourusername/zrenderer:latest yourusername/zrenderer:v1.0.0
+```
+
+#### 6. Push to Docker Hub
+
+Push the latest tag:
+```shell
+docker push yourusername/zrenderer:latest
+```
+Push the version tag (if you created one):
+```shell
+docker push yourusername/zrenderer:v1.0.0
+```
+
+**Upload time**: 2-10 minutes depending on your internet speed
+
+#### 7. Verify the Image on Docker Hub
+
+1. Go to https://hub.docker.com/
+2. Login and check your repositories
+3. You should see yourusername/zrenderer
+
+#### Using the Image on a Remote Server
+
+On your remote server (Linux):
+```bash
+# Pull the image
+docker pull yourusername/zrenderer:latest
+
+# Create directories
+mkdir -p secrets output resources
+
+# Run the container
+docker run -d --name zrenderer \
+  -v ./zrenderer.conf:/zren/zrenderer.conf \
+  -v ./output:/zren/output \
+  -v ./resources:/zren/resources \
+  -v ./secrets:/zren/secrets \
+  -p 11011:11011 \
+  yourusername/zrenderer:latest
+```
+
+**Important**: You'll need to provide:
+
+1. zrenderer.conf - Configuration file
+2. resources/ - Ragnarok Online game assets (GRF files)
+3. output/ - Where rendered images are saved
+4. secrets/ - Where access tokens are stored
+
+#### Common Commands
+
+``` shell
+# List local images
+docker images
+
+# Remove local image
+docker rmi yourusername/zrenderer:latest
+
+# View build logs
+docker build -t yourusername/zrenderer:latest . --no-cache
+
+# Test the image locally before pushing
+docker run -d -p 11011:11011 yourusername/zrenderer:latest
+
+# Check running containers
+docker ps
+
+# View container logs
+docker logs zrenderer
+```
 ---
 All Ragnarok Online related media and content are copyrighted © by Gravity Co., Ltd & Lee Myoungjin(studio DTDS) and have all rights reserved.
 
